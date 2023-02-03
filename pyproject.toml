@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "cql-study"
+version = "0.1.0"
+description = ""
+authors = ["jordanhoare <jordanhoare0@gmail.com>"]
+readme = "README.md"
+packages = [{include = "cql_study"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cassandra-driver = "^3.25.0"
+pydantic = {extras = ["dotenv"], version = "^1.10.4"}
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+mypy = "^0.971"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.18.1"
+
+[tool.black]
+line-length = 99
+target-version = ["py38"]
+
+[tool.isort]
+profile = 'black'
+
+[tool.poe.tasks]
+run = "poetry run python -m cql" 
+clean = """
+poetry run black . &
+poetry run isort . --profile black &
+poetry run mypy . &
+poetry run flake8 cql
+""" 
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
