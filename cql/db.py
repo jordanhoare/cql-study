@@ -1,7 +1,7 @@
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.cluster import Cluster
 
-from .config import get_settings
+from cql.config import get_settings
 
 
 def create_session():
