@@ -12,6 +12,7 @@ cassandra-driver = "^3.25.0"
 pydantic = {extras = ["dotenv"], version = "^1.10.4"}
 jupyter = "^1.0.0"
 pandas = "^1.5.3"
+faker-vehicle = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"

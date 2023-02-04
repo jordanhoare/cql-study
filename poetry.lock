@@ -462,6 +462,36 @@ files = [
 tests = ["asttokens", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "faker"
+version = "16.6.1"
+description = "Faker is a Python package that generates fake data for you."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Faker-16.6.1-py3-none-any.whl", hash = "sha256:2375d0bbaf405dc4f1cbc771485a78ad952c776798e5c228eef3e7b337f78868"},
+    {file = "Faker-16.6.1.tar.gz", hash = "sha256:b76e5d2405470e3d38d37d1bfaa9d9bbf171bdf41c814f5bbd8117b121f6bccb"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
+
+[[package]]
+name = "faker-vehicle"
+version = "0.2.0"
+description = "Vehicle related Provider for the Faker Python package."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "faker_vehicle-0.2.0-py2.py3-none-any.whl", hash = "sha256:30fa5eb81da17d6483be545431a9b51f76f2b6731ac3ee9c2e038560fca58e4a"},
+    {file = "faker_vehicle-0.2.0.tar.gz", hash = "sha256:3a7f1065da54b998f8875785282d3b1da4a422bc14fe0776a4a4ff4c1872a3b5"},
+]
+
+[package.dependencies]
+faker = "*"
+
+[[package]]
 name = "fastjsonschema"
 version = "2.16.2"
 description = "Fastest Python implementation of JSON schema"
@@ -2320,4 +2350,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "037824f391c9ac12e0abcdc42894555ed040830f7805ff22606c42c3b7cfc1d0"
+content-hash = "940f6744f41f98e353db05fbf2ba73678fd810d9d63529f7c1188cfff4b6b7a8"
