@@ -1,11 +1,9 @@
 import logging
 
-from cassandra.auth import PlainTextAuthProvider
-from cassandra.cluster import Cluster
 from cassandra.cqlengine import connection
 from cassandra.cqlengine.connection import log as cql_logger
 
-from .config import get_settings
+from .db import create_session
 
 
 def set_logging() -> None:
@@ -17,25 +15,24 @@ def set_logging() -> None:
 
 
 def sync_db() -> None:
-    settings = get_settings()
-    auth = PlainTextAuthProvider(username=settings.CASSANDRA_USER, password=settings.CASSANDRA_PWD)
-    cluster = Cluster(
-        contact_points=[settings.CASSANDRA_HOST], port=settings.CASSANDRA_PORT, auth_provider=auth
-    )
-    session = cluster.connect()
+    """Initialise a session with Cassandra and set keyspaces to system defaults"""
 
+    session = create_session()
+
+    # Remove all keyspaces other than system defaults
     rows = session.execute("SELECT * FROM system_schema.keyspaces")
-    if settings.CASSANDRA_KEYSPACE in [row[0] for row in rows]:
-        cql_logger.info("Dropping existing keyspace...")
-        session.execute(f"DROP KEYSPACE {settings.CASSANDRA_KEYSPACE}")
+    system_keyspaces = [
+        "system_auth",
+        "system_schema",
+        "system_distributed",
+        "system",
+        "system_traces",
+    ]
+    for row in rows:
+        if row[0] not in system_keyspaces:
+            session.execute(f"DROP KEYSPACE {row[0]}")
+            cql_logger.info(f"Dropped existing keyspace {row[0]}...")
 
-    session.execute(
-        "CREATE KEYSPACE %s WITH replication = "
-        "{'class': 'SimpleStrategy', 'replication_factor': '1'} "
-        "AND durable_writes = true;" % settings.CASSANDRA_KEYSPACE
-    )
-
-    session.set_keyspace(settings.CASSANDRA_KEYSPACE)
     connection.set_session(session)
 
 
