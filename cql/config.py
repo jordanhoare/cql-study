@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     CASSANDRA_PORT: int = 9042
     CASSANDRA_USER: str = "cassandra"
     CASSANDRA_PWD: str = "cassandra"
-    CASSANDRA_KEYSPACE: str = "testing"
 
     class Config:
         env_file = ".env"
