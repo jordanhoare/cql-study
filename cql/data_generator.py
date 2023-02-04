@@ -84,6 +84,7 @@ class DataGenerator(object):
                         category,
                         int(car_year),
                         number_plate,
+                        DataGenerator.generate_license_number(),
                         self.fake.first_name(),
                         self.fake.last_name(),
                         DataGenerator.generate_mobile_number(),
